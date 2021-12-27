@@ -1,1 +1,11 @@
 // TODO
+$background-color: #282c34;
+$heading-color: #f8f8f8;
+$highlight-color: #ff57b2;
+$info-color: #bbbbbb;
+$body-color: #d7d7d7;
+
+.common {
+  background-color: $background-color;
+  margin: 4rem 10rem 4rem 10rem;
+}
