@@ -1,11 +1,14 @@
 import { GetStaticProps } from 'next';
-import Header from '../components/Header';
 import Prismic from '@prismicio/client';
 
 import { getPrismicClient } from '../services/prismic';
 
-import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
+
+import { format } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
+
+import { FiCalendar, FiUser } from 'react-icons/fi';
 
 interface Post {
   uid?: string;
@@ -29,15 +32,32 @@ interface HomeProps {
 export default function Home({ postsPagination }: HomeProps) {
   // TODO
   return (
-    <div className={commonStyles.common}>
-      <Header />
+    <main className={styles.main}>
+      {postsPagination.results.map(post => (
+        <article className={styles.post} key={post.uid}>
+          <div className={styles.title}>
+            <h1>{post.data.title}</h1>
+            <span>{post.data.subtitle}</span>
+          </div>
 
-      <div></div>
-    </div>
+          <div className={styles.info}>
+            <div>
+              <FiCalendar size={20} />
+              <span>{post.first_publication_date}</span>
+            </div>
+
+            <div>
+              <FiUser size={20} />
+              <span>{post.data.author}</span>
+            </div>
+          </div>
+        </article>
+      ))}
+    </main>
   );
 }
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const prismic = getPrismicClient();
   const postsResponse = await prismic.query(
     [Prismic.predicates.at('document.type', 'post')],
@@ -47,17 +67,26 @@ export const getStaticProps = async () => {
     }
   );
 
-  const postsPagination = postsResponse.results.map(post => {
-    return {
-      uid: post.uid,
-      first_publication_date: post.first_publication_date,
-      data: {
-        title: post.data.title,
-        subtitle: post.data.subtitle,
-        author: post.data.author,
-      },
-    };
-  });
+  const postsPagination = {
+    next_page: postsResponse.next_page,
+    results: postsResponse.results.map(post => {
+      return {
+        uid: post.uid,
+        first_publication_date: format(
+          new Date(post.first_publication_date),
+          'dd MMM yyyy',
+          {
+            locale: ptBR,
+          }
+        ),
+        data: {
+          title: post.data.title,
+          subtitle: post.data.subtitle,
+          author: post.data.author,
+        },
+      };
+    }),
+  };
 
   return {
     props: {
