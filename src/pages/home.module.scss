@@ -11,6 +11,13 @@
     flex-direction: column;
     gap: 24px;
 
+    a {
+      text-decoration: none;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
     .title {
       display: flex;
       flex-direction: column;
@@ -20,6 +27,9 @@
         font-size: 28px;
         font-weight: 700;
         line-height: 34px;
+        &:hover {
+          color: $body-color;
+        }
       }
       span {
         font-size: 18px;
@@ -42,6 +52,18 @@
           color: $info-color;
         }
       }
+    }
+  }
+  .loadPosts {
+    color: $highlight-color;
+    border: none;
+    width: 176px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: start;
+    &:hover {
+      cursor: pointer;
     }
   }
 }
