@@ -37,6 +37,7 @@
     "prettier/prettier": "error",
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
+    "eslint-disable-next-line": "react/no-danger",
     "jsx-a11y/anchor-is-valid": [
       "error",
       {

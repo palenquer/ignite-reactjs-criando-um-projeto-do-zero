@@ -1,1 +1,44 @@
 // TODO
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+
+  h1 {
+    font-size: 48px;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    .text_info {
+      display: flex;
+      gap: 30px;
+      .icon {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        span {
+          color: #bbbbbb;
+        }
+      }
+    }
+  }
+
+  .content {
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+
+      .content_text {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .text {
+            color: #bbbbbb;
+        }
+      }
+  }
+}
